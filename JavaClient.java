@@ -16,7 +16,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Stack;
+
 
 public class JavaClient extends Thread {
 
@@ -25,7 +25,7 @@ public class JavaClient extends Thread {
 
 
     // Request List keep all request for each client
-    private static Stack<Request> requestsList;
+    private static List<Request> requestsList;
     private static List<Long>[] timeClient;
     private static final String FOLDER = "/Users/tristanmoers/UCL2018-2019/Archi/projet/requests_clients/";
     
@@ -58,7 +58,7 @@ public class JavaClient extends Thread {
             Thread.sleep(interval);
             
             long startTime = System.currentTimeMillis();
-            //System.out.println("Client n° : "+this.nbClient+" Requete : "+ this.request.getRequest());          
+            System.out.println("Client n° : "+this.nbClient+" Requete : "+ this.request.getRequest());          
             //connectionAndExecution(this.request);
             long endTime = System.currentTimeMillis();
 			long reqTime = endTime - startTime;
@@ -190,13 +190,13 @@ public class JavaClient extends Thread {
     	timeClient = new List[nbc];
     	Thread[][] clients = new JavaClient[nbc][];
     	for(int i = 0; i < nbc; i++) {
-    		requestsList = new Stack<Request>();
+    		requestsList = new ArrayList<Request>();
     		generateRequest(i);
     		nbr = requestsList.size();
     		clients[i] = new JavaClient[nbr];
     		timeClient[i] = new ArrayList<Long>();
     		for(int j = 0; j <nbr ; j++) {
-    			clients[i][j] = new JavaClient(i, requestsList.pop());
+    			clients[i][j] = new JavaClient(i, requestsList.get(j));
     			clients[i][j].run();
     		}
     	}
