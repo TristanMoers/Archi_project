@@ -10,8 +10,11 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
@@ -23,6 +26,7 @@ public class JavaClient extends Thread {
 
     // Request List keep all request for each client
     private static Stack<Request> requestsList;
+    private static List<Long>[] timeClient;
     private static final String FOLDER = "/Users/tristanmoers/UCL2018-2019/Archi/projet/requests_clients/";
     
     private int nbClient;
@@ -52,8 +56,13 @@ public class JavaClient extends Thread {
     	long interval= (long)poissonRandomInterarrivalDelay(5.0*1000.0);
         try {
             Thread.sleep(interval);
-            System.out.println("Client n° : "+this.nbClient+" Requete : "+ this.request.getRequest());
-            //connectionAndExecution(this.request.getRequest());
+            
+            long startTime = System.currentTimeMillis();
+            //System.out.println("Client n° : "+this.nbClient+" Requete : "+ this.request.getRequest());          
+            //connectionAndExecution(this.request);
+            long endTime = System.currentTimeMillis();
+			long reqTime = endTime - startTime;
+			timeClient[this.nbClient].add(reqTime);
         }
         catch (Exception e) {
         	System.out.println(e);
@@ -103,24 +112,7 @@ public class JavaClient extends Thread {
     
 
     
-    public static void main(String[] args) {
-    	int nbc = getNumberFile(FOLDER);
-    	int nbr = 0;
-    	Thread[][] clients = new JavaClient[nbc][];
-    	for(int i = 0; i < nbc; i++) {
-    		requestsList = new Stack<Request>();
-    		generateRequest(i);
-    		nbr = requestsList.size();
-    		clients[i] = new JavaClient[nbr];
-    		for(int j = 0; j <nbr ; j++) {
-    			clients[i][j] = new JavaClient(i, requestsList.pop());
-    			clients[i][j].run();
-    		}
-    	}
-    	
-        
-
-    }
+    // ================================	SQL FUNCTIONS ======================================
     
     
     public static void connectionAndExecution(Request request)  {
@@ -132,12 +124,100 @@ public class JavaClient extends Thread {
                 //testGetAverage(con,Math.abs(rnd.nextInt() % 2000000),Math.abs(rnd.nextInt() % 1000));
                 //testSelect(con,Math.abs(rnd.nextInt() % 2000000),1000000);
                 //testWrite(con);
-            }           
+            	switch(request.getType()) {
+				case "select" 	: select(con, request.getRequest());
+								break;
+				case "select random" : selectRandom(con, request.getRequest());
+										break;
+				case "insert" : insert(con, request.getRequest());
+								break;
+				default : break;
+            	}
+            }  
+            catch (Exception e) {
+            	System.out.println(e);
+            }
         }
         catch (Exception e) {
             System.out.println(e);
         }
+    
     }
+    
+    
+    public static void select(Connection con, String request) throws SQLException {
+    	PreparedStatement stmt = con.prepareStatement(request);
+    	ResultSet rs = stmt.executeQuery();
+    	ResultSetMetaData rsmd = rs.getMetaData();
+    	int columnsNumber = rsmd.getColumnCount();
+    	 while (rs.next()) {
+    		 for(int i = 1; i < columnsNumber; i++)
+    		        System.out.print(rs.getString(i) + " ");
+    		    System.out.println();
+         }
+    }
+    
+    public static void selectRandom(Connection con, String request) throws SQLException {
+    	PreparedStatement stmt = con.prepareStatement(request);
+    	stmt.setInt(1, Math.abs(rnd.nextInt() % 2000000));
+        stmt.setInt(2, 1000000);     
+    	ResultSet rs = stmt.executeQuery();
+    	ResultSetMetaData rsmd = rs.getMetaData();
+    	int columnsNumber = rsmd.getColumnCount();
+    	 while (rs.next()) {
+    		 for(int i = 1; i < columnsNumber; i++)
+    		        System.out.print(rs.getString(i) + " ");
+    		    System.out.println();
+         }
+    }
+    
+    
+    public static void insert(Connection con, String request) throws SQLException {
+    	PreparedStatement stmt = con.prepareStatement(request);
+        stmt.executeUpdate();         
+    }
+    
+    
+    
+    
+    // ================================== MAIN  ==============================================
+    
+    
+    public static void main(String[] args) {
+    	
+    	int nbc = getNumberFile(FOLDER);
+    	int nbr = 0;
+    	timeClient = new List[nbc];
+    	Thread[][] clients = new JavaClient[nbc][];
+    	for(int i = 0; i < nbc; i++) {
+    		requestsList = new Stack<Request>();
+    		generateRequest(i);
+    		nbr = requestsList.size();
+    		clients[i] = new JavaClient[nbr];
+    		timeClient[i] = new ArrayList<Long>();
+    		for(int j = 0; j <nbr ; j++) {
+    			clients[i][j] = new JavaClient(i, requestsList.pop());
+    			clients[i][j].run();
+    		}
+    	}
+    	
+    	for(int i = 0; i < nbc; i++) {
+    		System.out.println("=========== Client n°"+i+" ============");
+    		int total = 0;
+    		for(int j =0; j < timeClient[i].size(); j++) {
+    			total += timeClient[i].get(j);
+    			System.out.println("Time Request "+j+" : "+timeClient[i].get(j)+" ms");
+    		}
+    		System.out.println("TOTAL = "+total+" ms");
+    		System.out.println();
+    	}
+    	
+        
+
+    }
+    
+    
+    
     
     
     
