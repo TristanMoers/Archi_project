@@ -1,5 +1,6 @@
 package javaclient;
 
+import java.awt.List;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -7,14 +8,58 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
-public class JavaClient {
+public class JavaClient extends Thread {
 
     private static Random rnd=new Random();
     
-    public static void main(String[] args) {
+    /////////////////////////////////////////////////////////////////////
+    
+    private int nbClient;
+    private int nbRequest;
+    private HashMap<String, String[]> requests;
+    
+    
+    public JavaClient(int nbClient,int nbRequest, HashMap<String, String[]> requests) {
+    	this.nbClient = nbClient;
+    	this.nbRequest = nbRequest;
+    	this.requests = requests;
+    }
+    
+    
+    
+    // Note L == 1 / lambda
+    public double poissonRandomInterarrivalDelay(double L) {
+        return Math.log(1.0-Math.random())/-L;
+    }
+    
+    
+    public void run() {
+    	// Note -- lambda is 5 seconds, convert to milleseconds
+    	long interval= (long)poissonRandomInterarrivalDelay(5.0*1000.0);
+        try {
+            Thread.sleep(interval);
+        }
+        catch (Exception e) {
+        	System.out.println(e);
+        }
+    }
+    
+    
 
+    
+    /////////////////////////////////////////////////////////////////////
+    
+    public static void main(String[] args) {
+    	int nb = 2;
+    	Thread[] clients = new JavaClient[nb];
+    	for(int i = 0; i < nb; i++) {
+		   clients[i].start();
+    	}
+    	
         try {
             // Load the JDBC driver, so your Java program can talk with your database.
             // You have to download the driver (called Connector/J) from
@@ -26,12 +71,12 @@ public class JavaClient {
             // Connect to the database. Very similar to using the mysql commandline tool.
             // Of course, you have to change the IP address and username and password.
             try(Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://192.168.56.101:3306", "myUserName", "myNewPassword")) {
+                    "jdbc:mysql://192.168.43.135", "Tristan", "archi")) {
                 
             	// Some examples:
-                testGetAverage(con,Math.abs(rnd.nextInt() % 2000000),Math.abs(rnd.nextInt() % 1000));
+                //testGetAverage(con,Math.abs(rnd.nextInt() % 2000000),Math.abs(rnd.nextInt() % 1000));
                 testSelect(con,Math.abs(rnd.nextInt() % 2000000),1000000);
-                testWrite(con);
+                //testWrite(con);
             }           
         }
         catch (Exception e) {
@@ -67,7 +112,7 @@ public class JavaClient {
             int employeeNumber=rs.getInt(1);
             int salary=rs.getInt(2);
             Date from=rs.getDate(3);
-            Date to=rs.getDate(4);            
+            Date to=rs.getDate(4);  
         }
     }
     
@@ -96,4 +141,9 @@ public class JavaClient {
         // Clean up your database afterwards with
         //   DELETE from employees.salaries WHERE salary=123
     }
+    
+    
+    
+    
+    
 }
