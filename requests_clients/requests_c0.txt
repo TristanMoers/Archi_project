@@ -1,0 +1,4 @@
+select
+SELECT * FROM employees.salaries
+select random
+SELECT * FROM employees.salaries LIMIT ? OFFSET ?
