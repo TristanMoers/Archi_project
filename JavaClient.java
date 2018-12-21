@@ -27,7 +27,8 @@ public class JavaClient extends Thread {
     // Request List keep all request for each client
     private static List<Request> requestsList;
     private static List<Long>[] timeClient;
-    private static final String FOLDER = "/Users/tristanmoers/UCL2018-2019/Archi/projet/requests_clients/";
+    //private static final String FOLDER = "/Users/tristanmoers/UCL2018-2019/Archi/projet/requests_clients/";
+    private static final String FOLDER = "requests_clients/";
     
     private int nbClient;
     private Request request;
@@ -128,16 +129,16 @@ public class JavaClient extends Thread {
                 //testWrite(con);
             	switch(request.getType()) {
 				case "select" 	: {select(con, request.getRequest());
-									System.out.println("END = SELECT");
+									//System.out.println("END = SELECT");
 								break;}
 				case "select random" : {selectRandom(con, request.getRequest());
-										System.out.println("END = SELECT RANDOM");
+										//System.out.println("END = SELECT RANDOM");
 										break;}
 				case "insert" : {insert(con, request.getRequest());
-								System.out.println("END = INSERT");
+								//System.out.println("END = INSERT");
 								break;}
 				case "delete" : {delete(con, request.getRequest());
-								System.out.println("END = DELETE");
+								//System.out.println("END = DELETE");
 								break;}
 				default : break;
             	}
@@ -218,7 +219,7 @@ public class JavaClient extends Thread {
     		timeClient[i] = new ArrayList<Long>();
     		for(int j = 0; j <nbr ; j++) {
     			clients[i][j] = new JavaClient(i, requestsList.get(j));
-    			clients[i][j].run();
+    			clients[i][j].start();
     		}
     	}
     	

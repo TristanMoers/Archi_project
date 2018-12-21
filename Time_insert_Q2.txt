@@ -1,0 +1,175 @@
+
+
+m = 1
+
+=========== Client n°0 ============
+Time Request 0 : 544 ms
+Time Request 1 : 570 ms
+Time Request 2 : 601 ms
+Time Request 3 : 640 ms
+Time Request 4 : 668 ms
+Time Request 5 : 703 ms
+Time Request 6 : 735 ms
+Time Request 7 : 768 ms
+Time Request 8 : 807 ms
+Time Request 9 : 835 ms
+Time Request 10 : 876 ms
+Time Request 11 : 911 ms
+Time Request 12 : 1714 ms
+Time Request 13 : 1751 ms
+Time Request 14 : 1784 ms
+Time Request 15 : 1817 ms
+Time Request 16 : 1849 ms
+Time Request 17 : 1889 ms
+Time Request 18 : 3603 ms
+Time Request 19 : 3632 ms
+Time Request 20 : 3663 ms
+Time Request 21 : 3694 ms
+Time Request 22 : 3730 ms
+Time Request 23 : 3766 ms
+Time Request 24 : 3797 ms
+Time Request 25 : 3828 ms
+Time Request 26 : 3868 ms
+Time Request 27 : 3896 ms
+Time Request 28 : 3930 ms
+Time Request 29 : 3963 ms
+Time Request 30 : 3998 ms
+Time Request 31 : 4031 ms
+Time Request 32 : 4068 ms
+Time Request 33 : 4099 ms
+Time Request 34 : 4132 ms
+Time Request 35 : 4172 ms
+Time Request 36 : 4218 ms
+Time Request 37 : 4253 ms
+Time Request 38 : 4302 ms
+Time Request 39 : 4342 ms
+Time Request 40 : 4389 ms
+Time Request 41 : 4438 ms
+Time Request 42 : 4478 ms
+Time Request 43 : 4526 ms
+Time Request 44 : 4566 ms
+Time Request 45 : 4617 ms
+Time Request 46 : 4655 ms
+Time Request 47 : 4699 ms
+Time Request 48 : 4744 ms
+Time Request 49 : 4787 ms
+TOTAL = 152346 ms
+
+AVG time request = 3046
+
+
+
+
+m = 8
+
+=========== Client n°0 ============
+Time Request 0 : 440 ms
+Time Request 1 : 469 ms
+Time Request 2 : 473 ms
+Time Request 3 : 470 ms
+Time Request 4 : 471 ms
+Time Request 5 : 474 ms
+Time Request 6 : 473 ms
+Time Request 7 : 470 ms
+Time Request 8 : 525 ms
+Time Request 9 : 557 ms
+Time Request 10 : 560 ms
+Time Request 11 : 559 ms
+Time Request 12 : 554 ms
+Time Request 13 : 557 ms
+Time Request 14 : 554 ms
+Time Request 15 : 658 ms
+Time Request 16 : 720 ms
+Time Request 17 : 719 ms
+Time Request 18 : 752 ms
+Time Request 19 : 752 ms
+Time Request 20 : 755 ms
+Time Request 21 : 753 ms
+Time Request 22 : 753 ms
+Time Request 23 : 755 ms
+Time Request 24 : 781 ms
+Time Request 25 : 786 ms
+Time Request 26 : 822 ms
+Time Request 27 : 820 ms
+Time Request 28 : 823 ms
+Time Request 29 : 821 ms
+Time Request 30 : 822 ms
+Time Request 31 : 850 ms
+Time Request 32 : 857 ms
+Time Request 33 : 887 ms
+Time Request 34 : 887 ms
+Time Request 35 : 889 ms
+Time Request 36 : 890 ms
+Time Request 37 : 886 ms
+Time Request 38 : 890 ms
+Time Request 39 : 932 ms
+Time Request 40 : 933 ms
+Time Request 41 : 978 ms
+Time Request 42 : 979 ms
+Time Request 43 : 979 ms
+Time Request 44 : 980 ms
+Time Request 45 : 977 ms
+Time Request 46 : 979 ms
+Time Request 47 : 1018 ms
+TOTAL = 35689 ms
+
+AVG time request = 743
+
+
+m = 16
+
+
+=========== Client n°0 ============
+Time Request 0 : 442 ms
+Time Request 1 : 484 ms
+Time Request 2 : 485 ms
+Time Request 3 : 488 ms
+Time Request 4 : 489 ms
+Time Request 5 : 484 ms
+Time Request 6 : 484 ms
+Time Request 7 : 485 ms
+Time Request 8 : 489 ms
+Time Request 9 : 485 ms
+Time Request 10 : 493 ms
+Time Request 11 : 485 ms
+Time Request 12 : 491 ms
+Time Request 13 : 485 ms
+Time Request 14 : 485 ms
+Time Request 15 : 495 ms
+Time Request 16 : 521 ms
+Time Request 17 : 553 ms
+Time Request 18 : 550 ms
+Time Request 19 : 552 ms
+Time Request 20 : 552 ms
+Time Request 21 : 552 ms
+Time Request 22 : 557 ms
+Time Request 23 : 552 ms
+Time Request 24 : 556 ms
+Time Request 25 : 555 ms
+Time Request 26 : 552 ms
+Time Request 27 : 553 ms
+Time Request 28 : 552 ms
+Time Request 29 : 556 ms
+Time Request 30 : 555 ms
+Time Request 31 : 585 ms
+Time Request 32 : 618 ms
+Time Request 33 : 625 ms
+Time Request 34 : 622 ms
+Time Request 35 : 619 ms
+Time Request 36 : 619 ms
+Time Request 37 : 619 ms
+Time Request 38 : 619 ms
+Time Request 39 : 623 ms
+Time Request 40 : 620 ms
+Time Request 41 : 619 ms
+Time Request 42 : 620 ms
+Time Request 43 : 620 ms
+Time Request 44 : 619 ms
+Time Request 45 : 622 ms
+Time Request 46 : 619 ms
+Time Request 47 : 654 ms
+Time Request 48 : 687 ms
+TOTAL = 27246 ms
+
+AVG time request = 556
+
