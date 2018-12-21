@@ -1,0 +1,8 @@
+select
+SELECT * FROM employees.salaries
+insert
+INSERT INTO employees.salaries VALUE (?,1523,?,?)
+delete
+DELETE FROM employees.salaries WHERE employees.salaries.salary = 1523
+select random
+SELECT * FROM employees.salaries LIMIT ? OFFSET ?

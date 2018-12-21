@@ -1,0 +1,8 @@
+delete
+DELETE FROM employees.salaries WHERE employees.salaries.salary = 123
+delete
+DELETE FROM employees.salaries WHERE employees.salaries.salary = 1523
+delete
+DELETE FROM employees.salaries WHERE employees.salaries.salary = 13523
+delete
+DELETE FROM employees.salaries WHERE employees.salaries.salary = 15234

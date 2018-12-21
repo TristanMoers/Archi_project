@@ -58,8 +58,8 @@ public class JavaClient extends Thread {
             Thread.sleep(interval);
             
             long startTime = System.currentTimeMillis();
-            System.out.println("Client n° : "+this.nbClient+" Requete : "+ this.request.getRequest());          
-            //connectionAndExecution(this.request);
+            //System.out.println("Client n° : "+this.nbClient+" Requete : "+ this.request.getRequest());          
+            connectionAndExecution(this.request);
             long endTime = System.currentTimeMillis();
 			long reqTime = endTime - startTime;
 			timeClient[this.nbClient].add(reqTime);
@@ -101,6 +101,8 @@ public class JavaClient extends Thread {
 										break;
 				case "insert" : type = "insert";
 								break;
+				case "delete" : type = "delete";
+								break;
 				default : requestsList.add(new Request(type, sCurrentLine));
 				}
 			}
@@ -125,12 +127,18 @@ public class JavaClient extends Thread {
                 //testSelect(con,Math.abs(rnd.nextInt() % 2000000),1000000);
                 //testWrite(con);
             	switch(request.getType()) {
-				case "select" 	: select(con, request.getRequest());
-								break;
-				case "select random" : selectRandom(con, request.getRequest());
-										break;
-				case "insert" : insert(con, request.getRequest());
-								break;
+				case "select" 	: {select(con, request.getRequest());
+									System.out.println("END = SELECT");
+								break;}
+				case "select random" : {selectRandom(con, request.getRequest());
+										System.out.println("END = SELECT RANDOM");
+										break;}
+				case "insert" : {insert(con, request.getRequest());
+								System.out.println("END = INSERT");
+								break;}
+				case "delete" : {delete(con, request.getRequest());
+								System.out.println("END = DELETE");
+								break;}
 				default : break;
             	}
             }  
@@ -150,11 +158,11 @@ public class JavaClient extends Thread {
     	ResultSet rs = stmt.executeQuery();
     	ResultSetMetaData rsmd = rs.getMetaData();
     	int columnsNumber = rsmd.getColumnCount();
-    	 while (rs.next()) {
+    	 /*while (rs.next()) {
     		 for(int i = 1; i < columnsNumber; i++)
     		        System.out.print(rs.getString(i) + " ");
     		    System.out.println();
-         }
+         }*/
     }
     
     public static void selectRandom(Connection con, String request) throws SQLException {
@@ -164,17 +172,30 @@ public class JavaClient extends Thread {
     	ResultSet rs = stmt.executeQuery();
     	ResultSetMetaData rsmd = rs.getMetaData();
     	int columnsNumber = rsmd.getColumnCount();
-    	 while (rs.next()) {
+    	/*while (rs.next()) {
     		 for(int i = 1; i < columnsNumber; i++)
     		        System.out.print(rs.getString(i) + " ");
     		    System.out.println();
-         }
+         }*/
     }
     
     
     public static void insert(Connection con, String request) throws SQLException {
     	PreparedStatement stmt = con.prepareStatement(request);
+    	int employeeNumber=10001+(Math.abs(rnd.nextInt()) % 100000);
+    	long r=Math.abs(rnd.nextLong()) % 100000000000000L;
+        Date from=new java.sql.Date(r);
+        Date to=new java.sql.Date(r+10000000);
+        stmt.setInt(1,employeeNumber);
+    	stmt.setDate(2,from);
+        stmt.setDate(3,to);
         stmt.executeUpdate();         
+    }
+    
+    
+    public static void delete(Connection con, String request) throws SQLException {
+    	PreparedStatement stmt = con.prepareStatement(request);
+    	stmt.executeUpdate();         
     }
     
     
@@ -202,85 +223,34 @@ public class JavaClient extends Thread {
     	}
     	
     	for(int i = 0; i < nbc; i++) {
+    		for(int j = 0; j < clients[i].length; j++) {
+    			try {
+					clients[i][j].join();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    		}
+    	}
+    	
+    	int totalRequestTime = 0;
+    	int totalNumberRequest = 0;
+    	for(int i = 0; i < nbc; i++) {
     		System.out.println("=========== Client n°"+i+" ============");
     		int total = 0;
     		for(int j =0; j < timeClient[i].size(); j++) {
     			total += timeClient[i].get(j);
+    			totalRequestTime += timeClient[i].get(j);
+    			totalNumberRequest++;
     			System.out.println("Time Request "+j+" : "+timeClient[i].get(j)+" ms");
     		}
     		System.out.println("TOTAL = "+total+" ms");
     		System.out.println();
     	}
-    	
-        
+
+        System.out.println("AVG time request = "+ totalRequestTime/totalNumberRequest);
 
     }
-    
-    
-    
-    
-    
-    
-    
-   /* 
-    
-    // Example query where most of the processing happens on the server.
-    private static void testGetAverage(Connection con,int startRow,int numberOfRows) throws SQLException {
-        // Send the query to the database.
-        PreparedStatement stmt = con.prepareStatement("SELECT AVG(t.salary) FROM (SELECT salary FROM employees.salaries LIMIT ? OFFSET ?) as t");
-        stmt.setInt(1, numberOfRows);
-        stmt.setInt(2, startRow);        
-        ResultSet rs = stmt.executeQuery();
-        
-        // Get the result of the query. The while-loop is not really needed
-        // here because our example query will only return one result line
-        while (rs.next()) {
-            double averageSalary=rs.getDouble(1);  // get column 1 of the result          
-        }
-    }
-    
-    // Example query that generates some network traffic because data is sent from the server
-    // to the client.
-    private static void testSelect(Connection con,int startRow,int numberOfRows) throws SQLException {
-        PreparedStatement stmt = con.prepareStatement("SELECT * FROM employees.salaries LIMIT ? OFFSET ?");
-        stmt.setInt(1, numberOfRows);
-        stmt.setInt(2, startRow);        
-        ResultSet rs = stmt.executeQuery();
-        while (rs.next()) {
-            // we are not really doing anything with the data...
-            int employeeNumber=rs.getInt(1);
-            int salary=rs.getInt(2);
-            Date from=rs.getDate(3);
-            Date to=rs.getDate(4);  
-        }
-    }
-    
-    // Example query that writes to the database.
-    private static void testWrite(Connection con) throws SQLException {
-        // random employee
-        int employeeNumber=10001+(Math.abs(rnd.nextInt()) % 100000);
-        // random dates
-        long r=Math.abs(rnd.nextLong()) % 100000000000000L;
-        Date from=new java.sql.Date(r);
-        Date to=new java.sql.Date(r+10000000);
-        
-        try {
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO employees.salaries VALUE (?,123,?,?)");
-            stmt.setInt(1,employeeNumber);
-            stmt.setDate(2,from);
-            stmt.setDate(3,to);
-            stmt.executeUpdate();         
-        }
-        catch(SQLIntegrityConstraintViolationException e) {
-            // The salaries table uses the employee number and the from-date as primary key.
-            // Since we are generating random employee numbers and random dates, there is a certain
-            // probablity that the row already exists. Let's just ignore errors for this test.
-        }
-        
-        // Clean up your database afterwards with
-        //   DELETE from employees.salaries WHERE salary=123
-    }
-    */
     
     
     

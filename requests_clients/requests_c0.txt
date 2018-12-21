@@ -1,4 +1,10 @@
 select
 SELECT * FROM employees.salaries
+select
+SELECT * FROM employees.employees WHERE gender = 'M'
+select
+SELECT employees.employees.first_name, employees.departments.dept_name FROM employees.employees, employees.departments, employees.dept_emp WHERE employees.dept_emp.emp_no = employees.employees.emp_no AND employees.dept_emp.dept_no = employees.departments.dept_no
 select random
 SELECT * FROM employees.salaries LIMIT ? OFFSET ?
+select random
+SELECT employees.employees.first_name, employees.departments.dept_name FROM employees.employees, employees.departments, employees.dept_emp WHERE employees.dept_emp.emp_no = employees.employees.emp_no AND employees.dept_emp.dept_no = employees.departments.dept_no LIMIT ? OFFSET ?

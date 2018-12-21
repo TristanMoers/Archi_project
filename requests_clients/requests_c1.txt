@@ -1,8 +1,8 @@
-select
-SELECT * FROM employees.salaries
-select random
-SELECT * FROM employees.salaries LIMIT ? OFFSET ?
-select
-SELECT * FROM employees.salaries
-select random
-SELECT * FROM employees.salaries LIMIT ? OFFSET ?
+insert
+INSERT INTO employees.salaries VALUE (?,123,?,?)
+insert
+INSERT INTO employees.salaries VALUE (?,1523,?,?)
+insert
+INSERT INTO employees.salaries VALUE (?,13523,?,?)
+insert
+INSERT INTO employees.salaries VALUE (?,15234,?,?)
