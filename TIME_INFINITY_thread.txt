@@ -1,0 +1,30 @@
+=========== Client n°0 ============
+Time Request 0 : 3023 ms
+Time Request 1 : 16049 ms
+Time Request 2 : 18392 ms
+Time Request 3 : 73462 ms
+Time Request 4 : 122146 ms
+TOTAL = 233072 ms
+
+=========== Client n°1 ============
+Time Request 0 : 2763 ms
+Time Request 1 : 4068 ms
+Time Request 2 : 6559 ms
+Time Request 3 : 6591 ms
+TOTAL = 19981 ms
+
+=========== Client n°2 ============
+Time Request 0 : 4031 ms
+Time Request 1 : 5265 ms
+Time Request 2 : 7804 ms
+Time Request 3 : 10249 ms
+TOTAL = 27349 ms
+
+=========== Client n°3 ============
+Time Request 0 : 2799 ms
+Time Request 1 : 6055 ms
+Time Request 2 : 9053 ms
+Time Request 3 : 116929 ms
+TOTAL = 134836 ms
+
+AVG time request = 24425

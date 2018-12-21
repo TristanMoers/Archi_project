@@ -1,0 +1,70 @@
+ENSEMBLE :
+
+=========== Client n°0 ============
+Time Request 0 : 54969 ms
+Time Request 1 : 4386 ms
+Time Request 2 : 3714 ms
+Time Request 3 : 11914 ms
+Time Request 4 : 303 ms
+TOTAL = 75286 ms
+
+=========== Client n°1 ============
+Time Request 0 : 109 ms
+Time Request 1 : 74 ms
+Time Request 2 : 66 ms
+Time Request 3 : 57 ms
+TOTAL = 306 ms
+
+=========== Client n°2 ============
+Time Request 0 : 1329 ms
+Time Request 1 : 1433 ms
+Time Request 2 : 1294 ms
+Time Request 3 : 1369 ms
+TOTAL = 5425 ms
+
+=========== Client n°3 ============
+Time Request 0 : 46148 ms
+Time Request 1 : 64 ms
+Time Request 2 : 1301 ms
+Time Request 3 : 6383 ms
+TOTAL = 53896 ms
+
+AVG time request = 7936
+
+
+SEPARE :
+
+=========== Client n°0 ============
+Time Request 0 : 47709 ms
+Time Request 1 : 4401 ms
+Time Request 2 : 3731 ms
+Time Request 3 : 20838 ms
+Time Request 4 : 503 ms
+TOTAL = 77182 ms
+AVG   = 19295 
+
+=========== Client n°1 ============
+Time Request 0 : 449 ms
+Time Request 1 : 64 ms
+Time Request 2 : 67 ms
+Time Request 3 : 64 ms
+TOTAL = 644 ms
+AVG   = 161
+
+=========== Client n°2 ============
+Time Request 0 : 1710 ms
+Time Request 1 : 1266 ms
+Time Request 2 : 1639 ms
+Time Request 3 : 1637 ms
+TOTAL = 6252 ms
+AVG   = 1563
+
+=========== Client n°3 ============
+Time Request 0 : 45990 ms
+Time Request 1 : 70 ms
+Time Request 2 : 1559 ms
+Time Request 3 : 27050 ms
+TOTAL = 74669 ms
+AVG   = 18667
+
+
